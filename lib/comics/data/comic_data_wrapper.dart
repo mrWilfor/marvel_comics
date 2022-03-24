@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'list_of_comics_response.g.dart';
+part 'comic_data_wrapper.g.dart';
 
 @JsonSerializable()
-class ListOfComicsResponse {
-  ListOfComicsResponse({
+class ComicDataWrapper {
+  ComicDataWrapper({
     required this.code,
     required this.status,
     required this.copyright,
@@ -27,15 +27,15 @@ class ListOfComicsResponse {
   @JsonKey(name: 'etag')
   String etag;
   @JsonKey(name: 'data')
-  ListOfComicsData data;
+  ComicDataContainer data;
 
-  factory ListOfComicsResponse.fromJson(Map<String, dynamic> json) => _$ListOfComicsResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$ListOfComicsResponseToJson(this);
+  factory ComicDataWrapper.fromJson(Map<String, dynamic> json) => _$ComicDataWrapperFromJson(json);
+  Map<String, dynamic> toJson() => _$ComicDataWrapperToJson(this);
 }
 
 @JsonSerializable()
-class ListOfComicsData {
-  ListOfComicsData({
+class ComicDataContainer {
+  ComicDataContainer({
     required this.offset,
     required this.limit,
     required this.total,
@@ -52,15 +52,15 @@ class ListOfComicsData {
   @JsonKey(name: 'count')
   int count;
   @JsonKey(name: 'results')
-  List<ComicsInfo> results;
+  List<Comic> results;
 
-  factory ListOfComicsData.fromJson(Map<String, dynamic> json) => _$ListOfComicsDataFromJson(json);
-  Map<String, dynamic> toJson() => _$ListOfComicsDataToJson(this);
+  factory ComicDataContainer.fromJson(Map<String, dynamic> json) => _$ComicDataContainerFromJson(json);
+  Map<String, dynamic> toJson() => _$ComicDataContainerToJson(this);
 }
 
 @JsonSerializable()
-class ComicsInfo {
-  ComicsInfo(
+class Comic {
+  Comic(
       {required this.id, required this.title, required this.description});
 
   @JsonKey(name: 'id')
@@ -70,6 +70,6 @@ class ComicsInfo {
   @JsonKey(name: 'description')
   String description;
 
-  factory ComicsInfo.fromJson(Map<String, dynamic> json) => _$ComicsInfoFromJson(json);
-  Map<String, dynamic> toJson() => _$ComicsInfoToJson(this);
+  factory Comic.fromJson(Map<String, dynamic> json) => _$ComicFromJson(json);
+  Map<String, dynamic> toJson() => _$ComicToJson(this);
 }

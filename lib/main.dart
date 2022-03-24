@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:marvel_comics/list_of_comics/ui/list_of_comics_page.dart';
 
+import 'comics/ui/comics_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,10 +34,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: ListOfComicsPage()
-    );
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: ComicsPage());
   }
 }
