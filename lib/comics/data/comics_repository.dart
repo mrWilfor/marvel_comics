@@ -1,8 +1,10 @@
+import 'package:chopper/chopper.dart';
+
 import 'comics_remote_data_source.dart';
 import 'comic_data_wrapper.dart';
 
 abstract class ComicsRepository {
-  Future<ComicDataWrapper> getComics();
+  Future<Response<ComicDataWrapper>> getComics();
 }
 
 class ComicsRepositoryImpl implements ComicsRepository {
@@ -11,7 +13,7 @@ class ComicsRepositoryImpl implements ComicsRepository {
   ComicsRepositoryImpl({ required this.comicsRemoteDataSource});
 
   @override
-  Future<ComicDataWrapper> getComics() {
+  Future<Response<ComicDataWrapper>> getComics() {
     return comicsRemoteDataSource.getComics();
   }
 }

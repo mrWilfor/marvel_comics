@@ -1,3 +1,4 @@
+import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
 import 'package:marvel_comics/comics/data/comics_remote_data_source.dart';
 import 'package:marvel_comics/comics/data/comics_repository.dart';
@@ -15,47 +16,37 @@ class ComicsPage extends StatefulWidget {
 class _ComicsPageState extends State<ComicsPage> {
   @override
   Widget build(BuildContext context) {
-    Future<ComicDataWrapper> comics = widget.repository.getComics();
+    Future<Response<ComicDataWrapper>> comics = widget.repository.getComics();
     return Center(
         child: FutureBuilder(
             future: comics,
             builder: (BuildContext context,
-                AsyncSnapshot<ComicDataWrapper> snapshot) {
+                AsyncSnapshot<Response<ComicDataWrapper>> snapshot) {
               if (snapshot.hasData) {
-                return Center(
-                  child: ListView.builder(
-                    itemCount: snapshot.requireData.data.results.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Column(
-                        children: [
-                          Center(
-                            child: Text(
-                                snapshot.requireData.data.results[index].title),
-                          ),
-                          Center(
-                            child: Text(snapshot
-                                .requireData.data.results[index].description),
-                          )
-                        ],
-                      );
-                    },
-                  ),
-                );
+                if (snapshot.data?.isSuccessful == true) {
+                  return Center(
+                    child: ListView.builder(
+                      itemCount: snapshot.requireData.body?.data.results.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          children: [
+                            Center(
+                              child: Text(
+                                  '${snapshot.requireData.body?.data.results[index].title}'),
+                            ),
+                            Center(
+                              child: Text('${snapshot.requireData.body?.data.results[index].description}'),
+                            )
+                          ],
+                        );
+                      },
+                    ),
+                  );
+                } else {
+                  return createErrorWidget(snapshot.data?.error?.toString() ?? '');
+                }
               } else if (snapshot.hasError) {
-                return Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.error_outline,
-                        color: Colors.red,
-                        size: 60,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16),
-                        child: Text('Error: ${snapshot.error}'),
-                      )
-                    ]);
+                return createErrorWidget(snapshot.error.toString());
               } else {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,5 +65,22 @@ class _ComicsPageState extends State<ComicsPage> {
                 );
               }
             }));
+  }
+
+  Column createErrorWidget(String error) {
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.error_outline,
+            color: Colors.red,
+            size: 60,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 16),
+            child: Text('Error: ${error}'),
+          )
+        ]);
   }
 }

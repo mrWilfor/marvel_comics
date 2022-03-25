@@ -2,7 +2,10 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'comic_data_wrapper.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(
+  explicitToJson: true,
+  includeIfNull: false,
+)
 class ComicDataWrapper {
   ComicDataWrapper({
     required this.code,
@@ -33,7 +36,10 @@ class ComicDataWrapper {
   Map<String, dynamic> toJson() => _$ComicDataWrapperToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(
+  explicitToJson: true,
+  includeIfNull: false,
+)
 class ComicDataContainer {
   ComicDataContainer({
     required this.offset,
@@ -58,7 +64,10 @@ class ComicDataContainer {
   Map<String, dynamic> toJson() => _$ComicDataContainerToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(
+  explicitToJson: true,
+  includeIfNull: false,
+)
 class Comic {
   Comic(
       {required this.id, required this.title, required this.description});
