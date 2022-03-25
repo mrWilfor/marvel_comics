@@ -1,9 +1,9 @@
 import 'package:chopper/chopper.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:crypto/crypto.dart' as crypto;
 import 'package:marvel_comics/comics/data/comics_service.dart';
 
+import '../network/json_serializable_converter.dart';
 import 'comic_data_wrapper.dart';
 
 abstract class ComicsRemoteDataSource {
@@ -22,10 +22,11 @@ class ComicsRemoteDataSourceImpl implements ComicsRemoteDataSource {
 
     final chopper = ChopperClient(
         baseUrl: 'https://gateway.marvel.com:443',
-      services: [
-        ComicsService.create(),
-      ]
-    );
+        services: [
+          ComicsService.create(),
+        ],
+        converter: const JsonToTypeConverter(
+            {ComicDataWrapper: ComicDataWrapper.fromJson}));
     var comicsService = chopper.getService<ComicsService>();
 
     return comicsService.getComics(timestamp, publicKey, hash);
