@@ -29,10 +29,5 @@ class ComicsRemoteDataSourceImpl implements ComicsRemoteDataSource {
     var comicsService = chopper.getService<ComicsService>();
 
     return comicsService.getComics(timestamp, publicKey, hash);
-
-    // var client = http.Client();
-    // var response = await client.get(
-    //   Uri.https('gateway.marvel.com:443', 'v1/public/comics', {'ts':'$timestamp', 'apikey': publicKey, 'hash':hash}),);
-    // return ComicDataWrapper.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
   }
 }
