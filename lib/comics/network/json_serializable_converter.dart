@@ -1,6 +1,6 @@
 import 'package:chopper/chopper.dart';
 
-import 'json_type_parser.dart';
+typedef JsonFactory<T> = T Function(Map<String, dynamic> json);
 
 class JsonToTypeConverter extends JsonConverter {
   final Map<Type, JsonFactory> factories;
