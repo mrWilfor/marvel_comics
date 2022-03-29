@@ -1,6 +1,6 @@
 import 'package:chopper/chopper.dart';
 
-import 'comic_data_wrapper.dart';
+import '../comic_data_wrapper.dart';
 
 part 'comics_service.chopper.dart';
 
@@ -10,6 +10,5 @@ abstract class ComicsService extends ChopperService {
       _$ComicsService(chopperClient);
 
   @Get(path: 'v1/public/comics')
-  Future<Response<ComicDataWrapper>> getComics(@Query('ts') int timestamp,
-      @Query('apikey') String apikey, @Query('hash') String hash);
+  Future<Response<ComicDataWrapper>> getComics();
 }
