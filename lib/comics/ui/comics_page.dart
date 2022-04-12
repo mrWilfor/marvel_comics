@@ -46,7 +46,7 @@ class _ComicsPageState extends State<ComicsPage> {
                 child: Text(comics[index].title),
               ),
               Center(
-                child: Text(comics[index].description),
+                child: Text('${comics[index].description}'),
               )
             ],
           );

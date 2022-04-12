@@ -77,7 +77,7 @@ class Comic {
   @JsonKey(name: 'title')
   String title;
   @JsonKey(name: 'description')
-  String description;
+  String? description;
 
   factory Comic.fromJson(Map<String, dynamic> json) => _$ComicFromJson(json);
   Map<String, dynamic> toJson() => _$ComicToJson(this);

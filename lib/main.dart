@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marvel_comics/comics/domain/ComicsBloc.dart';
 
-import 'comics/data/comic_data_wrapper.dart';
 import 'comics/data/comics_remote_data_source.dart';
 import 'comics/data/comics_repository.dart';
 import 'comics/data/network/comics_service.dart';
-import 'comics/data/network/json_serializable_converter.dart';
 import 'comics/ui/comics_page.dart';
 import 'network/auth_interceptor.dart';
 
@@ -59,8 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
         services: [
           ComicsService.create(),
         ],
-        converter: const JsonToTypeConverter(
-            {ComicDataWrapper: ComicDataWrapper.fromJson}),
+        converter: const JsonConverter(),
         interceptors: [AuthInterceptor()]);
   }
 }

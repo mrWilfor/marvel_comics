@@ -18,17 +18,7 @@ class ComicsBloc extends Bloc<ComicsEvent, DataResult<List<Comic>>> {
 
   void getComics(Emitter<DataResult<List<Comic>>> emit) async {
     emit(Loading());
-    await repository.getComics().then((value) {
-      if (value.isSuccessful) {
-        if (value.body?.status == 'Ok') {
-          emit(Success(value.body?.data.results ?? List.empty()));
-        } else {
-          emit(Failed('${value.body?.data.results.toString()}'));
-        }
-      } else {
-        emit(Failed('${value.error}'));
-      }
-    });
+    await repository.getComics().then((value) => emit(value));
   }
 
   void initState() {
